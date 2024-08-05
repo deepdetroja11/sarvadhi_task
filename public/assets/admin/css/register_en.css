@@ -1,0 +1,384 @@
+body {
+    background-color: #fff;
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+}
+
+.main-application-section .form-group {
+    margin-bottom: 0px;
+}
+
+.main-application-section {
+    font-family: 'Abel' !important;
+    background-color: #f9ffff;
+}
+
+.main-application-section .container {
+    max-width: 1386px;
+}
+
+.main-application-section .page-header {
+    background: #E7FDFE;
+    min-height: 209px;
+    border-bottom: 4px solid #0F898E;
+    border-radius: 0px !important;
+    padding: 16px 15px;
+    margin-top: 0;
+}
+
+.main-application-section .page-leftheader {
+    display: flex;
+    align-items: center;
+}
+
+.main-application-section .page-header h4 {
+    font-family: 'Abel';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 48px;
+    color: #181818;
+    margin-left: 20px;
+}
+
+.main-application-section .form-detail-content {
+    margin: 20px auto;
+    max-width: 720px;
+    margin-top: 80px;
+    padding: 30px;
+    background-color: #fff;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 15px;
+}
+
+.main-application-section .arrow-select {
+    position: absolute;
+    right: 5px;
+    top: 6px;
+}
+
+.main-application-section .form-detail-content label {
+    font-family: 'Abel';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 30px;
+    color: #181818;
+    margin-bottom: 0px;
+}
+
+.main-application-section .custom-radio .custom-control-input:checked~.custom-control-label:after {
+    background-color: #1CBBD8;
+    border-radius: 100%;
+    background-image: none !important;
+    height: 16px;
+    width: 16px;
+    left: 0;
+}
+
+.main-application-section .custom-control-label:before {
+    border: 1px solid #1CBBD8;
+    height: 16px;
+    top: 0.25rem;
+    width: 16px;
+    left: 0;
+    box-shadow: none !important;
+}
+
+.main-application-section .form-detail-content .form-control {
+    border-bottom: 1px solid #181818;
+    padding: 0px 20px 16px 0px;
+    border-radius: 0px;
+    color: #000;
+    font-family: 'Abel';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 30px;
+    border-left: 0px;
+    border-top: 0px;
+    border-right: 0px;
+}
+
+html[dir="rtl"] .main-application-section .form-detail-content .form-control {
+    padding-right: 0;
+    padding-left: 16px;
+}
+
+.main-application-section .form-detail-content .form-control::placeholder {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 30px;
+    color: #C4C4C4 !important;
+}
+
+.main-application-section .form-detail-content .select-programs-list {
+    margin-bottom: 28px;
+}
+
+.main-application-section .form-detail-content .personal-information {
+    margin-bottom: 28px !important;
+}
+
+.main-application-section .high-school-certificate {
+    margin-top: 28px;
+}
+
+.main-application-section .high-school-certificate .form-label {
+    margin-bottom: 11px;
+}
+
+.main-application-section .high-school-certificate .custom-controls-stacked .custom-control {
+    margin-top: 14px;
+}
+
+.main-application-section .high-school-certificate .custom-controls-stacked .custom-control:first-child {
+    margin-top: 0px;
+}
+
+.main-application-section .custom-controls-stacked {
+    padding-left: 3px;
+}
+
+.main-application-section .do-another-certificate {
+    margin-top: 36px;
+}
+
+.main-application-section .another_certificate {
+    margin: 4px 0px 16px 0px;
+}
+
+.main-application-section .have-another-qualification {
+    margin-top: 30px;
+}
+
+.main-application-section .have-another-qualification .form-label {
+    margin-bottom: 16px;
+}
+
+.main-application-section .have-another-qualification .diploma-another_certificate {
+    margin-top: 4px;
+    margin-bottom: 23px;
+}
+
+.main-application-section .there-kind-support {
+    margin-top: 28px;
+}
+
+.main-application-section .there-kind-support .form-label {
+    margin-bottom: 7px;
+}
+
+.main-application-section .there-kind-support .custom-controls-stacked .custom-control {
+    margin-bottom: 14px;
+}
+
+.main-application-section .there-kind-support .custom-controls-stacked .custom-control:last-child {
+    margin-bottom: 0px;
+}
+
+.main-application-section .communication-info {
+    margin-top: 28px;
+}
+
+.main-application-section .form-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.main-application-section .form-footer .btn-primary {
+    background: #0F898E;
+    border-radius: 7px;
+    font-family: 'Abel';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 24px;
+    letter-spacing: 0.01em;
+    color: #FFFFFF;
+    width: 150px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.main-application-section .form-footer .btn-primary:focus {
+    background: #0a7478;
+}
+
+html[dir="rtl"] .main-application-section .form-footer {
+    justify-content: flex-start;
+}
+
+.main-application-section .page-header .dropdown .form-control {
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 1px solid #181818;
+    border-radius: 0px;
+    background-color: transparent;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 30px;
+    color: #181818;
+    min-width: 100px;
+    padding: 0px 0px 7px 0px;
+}
+
+.main-application-section select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    height: auto !important;
+}
+
+.main-application-section .form-label {
+    margin-top: 10px;
+}
+
+.main-application-section .span-m {
+    margin-left: 13px;
+    display: inline-block;
+}
+
+.main-title {
+    font-weight: bolder !important;
+    background-color: #e7fdfe;
+    padding: 10px;
+    border-radius: 8px;
+    color: #00aea9;
+}
+
+.form-header h4.page-title {
+    color: #000;
+    margin-bottom: 28px;
+    position: relative;
+    width: fit-content;
+    font-size: 28px;
+}
+
+.form-header h4.page-title:before {
+    content: "";
+    width: 100%;
+    height: 2px;
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    background-color: #00aea9;
+}
+
+@media (max-width:700px) {
+    .main-application-section .form-detail-content {
+        max-width: 100%;
+        width: 100%;
+        margin: 29px auto auto auto;
+        padding: 15px;
+    }
+    .main-application-section .page-header .dropdown .form-control {
+        font-size: 16px;
+        line-height: 22px;
+        min-width: 87px;
+    }
+    .main-application-section .page-header .arrow-select {
+        {
+            {
+                -- right: 2px;
+                --
+            }
+        }
+        top: 1px;
+    }
+    .main-application-section .page-header {
+        min-height: 122px;
+        padding: 0px 0px 16px 0px;
+    }
+    .main-application-section .page-leftheader {
+        margin-bottom: 0px;
+    }
+    .main-application-section .form-detail-content label {
+        font-size: 18px;
+        line-height: 24px;
+    }
+    .main-application-section .page-header h4 {
+        font-size: 28px;
+        line-height: 32px;
+    }
+    .main-application-section .form-detail-content .select-programs-list {
+        margin-bottom: 34px;
+    }
+    .main-application-section .form-detail-content .personal-information {
+        margin-bottom: 15px !important;
+    }
+    .main-application-section .form-detail-content .form-control::placeholder {
+        font-size: 18px;
+        line-height: 24px;
+    }
+    .main-application-section .form-label {
+        margin-top: 6px;
+    }
+    .main-application-section .high-school-certificate {
+        margin-top: 40px;
+        margin-bottom: 24px;
+    }
+    .main-application-section .communication-info {
+        margin-top: 25px;
+    }
+    .main-application-section .form-footer {
+        margin-top: 20px;
+    }
+    .main-application-section .form-footer .btn-primary {
+        border-radius: 10px;
+        font-size: 22px;
+        line-height: 26px;
+        width: 127px;
+        height: 49px;
+        margin-top: 0;
+        margin-bottom: 21px
+    }
+}
+
+.error {
+    color: red !important;
+    font-weight: 600 !important;
+}
+
+.another_certificate,
+.school_certificate {
+    display: none;
+}
+
+.another_qulification {
+    display: none;
+}
+
+.noprogram {
+    font-size: 35px;
+    color: #000;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 50%;
+}
+
+@media (max-width:500px) {
+    .noprogram {
+        font-size: 25px;
+    }
+    .main-application-section .page-header h4 {
+        font-size: 22px;
+        line-height: 28px;
+        margin-left: 0;
+    }
+    .main-application-section .page-leftheader {
+        display: block;
+    }
+}

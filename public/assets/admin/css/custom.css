@@ -1,0 +1,142 @@
+.error {
+    color: red;
+}
+
+.dropify-clear {
+    display: none !important;
+}
+
+table .parent {
+    animation: none !important;
+}
+
+.ar-view-inner-main {
+    padding: 15px;
+}
+
+.ar-view-inner-main .form-group {
+    align-items: center;
+}
+
+.ar-view-inner-main .form-group p {
+    margin: 0;
+}
+
+.ar-view-inner-main .form-group label {
+    margin: 0;
+}
+
+.ar-view-inner-main .form-group h3 {
+    margin: 0;
+    margin-top: 15px;
+    padding-left: 12px;
+}
+
+#table-wrapper {
+    position: relative;
+}
+
+#table-scroll {
+    height: 100%;
+    overflow: auto;
+    margin-top: 20px;
+}
+
+#table-wrapper table {
+    width: 100%;
+}
+
+#table-wrapper table * {
+    color: black;
+}
+
+#table-wrapper table thead th .text {
+    position: absolute;
+    top: -20px;
+    z-index: 2;
+    height: 20px;
+    width: 35%;
+    border: 1px solid red;
+}
+
+#submitapplicationDatatable_filter,
+#approveapplicationDatatable_filter {
+    position: absolute;
+    top: -8px;
+    right: 0;
+}
+
+#submitapplicationDatatable_paginate,
+#approveapplicationDatatable_paginate {
+    position: absolute;
+    right: 0;
+    bottom: 15px;
+}
+
+#table-scroll {
+    padding-bottom: 20px;
+}
+
+.application-filter .card-options {
+    margin: 0 auto;
+    max-width: 100%;
+    justify-content: center;
+    width: 100%;
+}
+
+.application-filter .card-options .row {
+    width: 100%;
+}
+
+.application-filter .card-options label.form-label {
+    width: 100%;
+    margin-left: 0 !important;
+}
+
+.application-filter .card-options select.form-control {
+    min-width: 100%;
+}
+
+@media(max-width: 991px) {
+    #submitapplicationDatatable_filter,
+    #submitapplicationDatatable_paginate,
+    #approveapplicationDatatable_filter,
+    #approveapplicationDatatable__paginate {
+        position: relative;
+        top: 0;
+        right: 0;
+        left: 0;
+    }
+    #submitapplicationDatatable_filter,
+    #approveapplicationDatatable_filter {
+        text-align: right;
+        margin-top: 10px;
+    }
+    .application-filter .card-options .dropdown {
+        width: 100%;
+    }
+    .application-filter .card-options select.form-control {
+        min-width: 100%;
+    }
+    .application-filter .card-header {
+        display: block;
+    }
+    .application-filter .card-options {
+        margin-right: auto;
+        margin-left: 0;
+        justify-content: flex-start;
+    }
+}
+
+@media(max-width: 520px) {
+    .ar-view-inner-main .form-group h3 {
+        font-size: 18px;
+    }
+    #submitapplicationDatatable_filter input.form-control,
+    #approveapplicationDatatable_filter input.form-control {
+        max-width: 150px;
+    }
+    .application-filter .card-header {
+        display: block;
+    }
+}
