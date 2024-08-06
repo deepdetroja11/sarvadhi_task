@@ -45,13 +45,11 @@ class InvoiceController extends Controller
                     $edit_url = route('invoice.edit', $row->id);
                     $view_url = route('invoice.show', $row->id);
                     $download_url = route('invoice.download', ['id' => $row->id, 'download' => true]);
-                    $send_mail_url = route('invoice.sendMail', $row->id);
                     $action_btn = "
                         <a href='{$view_url}' class='action-btns1 mr-2'><i class='fe fe-eye text-info' data-toggle='tooltip' data-placement='top' title='View'></i></a>
                         <a href='{$edit_url}' class='action-btns1 mr-2'><i class='fe fe-edit text-primary' data-toggle='tooltip' data-placement='top' title='Edit'></i></a>
                         <a href='javascript:void(0);' onclick='deleteInvoice({$row->id})' class='action-btns1 mr-2' data-toggle='tooltip' data-placement='top' title='Delete'><i class='fe fe-trash-2 text-danger'></i></a>
-                        <a href='{$download_url}' class='action-btns1 mr-2' data-toggle='tooltip' data-placement='top' title='Download PDF' style='color:blue'><i class='fe fe-download'></i></a>
-                        <a href='javascript:void(0);' onclick='sendMail({$row->id})' class='action-btns1 mr-2' data-toggle='tooltip' data-placement='top' title='Send Mail' style='color:green'><i class='fe fe-mail'></i></a>";
+                        <a href='{$download_url}' class='action-btns1 mr-2' data-toggle='tooltip' data-placement='top' title='Download PDF' style='color:blue'><i class='fe fe-download'></i></a>";
                     return $action_btn;
                 })
                 ->rawColumns(['action'])
