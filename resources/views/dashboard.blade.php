@@ -57,7 +57,7 @@
                                 <div class="col-8">
                                     <div class="mt-0 text-left"> <span class="fs-14 font-weight-semibold">Total
                                             Invoice</span>
-                                        <h3 class="mb-0 mt-1 mb-2">{{ $invoiceCount }}</h3>
+                                        <h3 class="mb-0 mt-1 mb-2"></h3>
                                     </div>
                                 </div>
                                 <div class="col-4">
