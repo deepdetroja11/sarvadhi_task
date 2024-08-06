@@ -9,19 +9,12 @@ $(document).ready(function () {
         processing: true,
         serverSide: true,
         order: [[0, "desc"]],
-        // ajax: {
-        //     url: window.taskRoutes.index,
-        //     data: function(data) {
-        //         data.status = $('#userSelectStatus').val();
-        //     }
-        // },
-
         ajax: window.taskRoutes.index,
         ajax: {
             url: window.taskRoutes.index,
             data: function (d) {
                 d.status = $('#userSelect').val();
-                // d.invoice_date = $('#invoiceDate').val();
+                d.invoice_date = $('#invoiceDate').val();
             }
         },
 
@@ -50,9 +43,9 @@ $(document).ready(function () {
         ],
     });
 
-    $('#userSelect').change(function() {
+    $('#userSelect, #invoiceDate').change(function() {
         table.draw();
-    });
+    })
 
 
     var flashMessage = $("#flash-message");
@@ -88,3 +81,10 @@ function deleteInvoice(invoiceId) {
         });
     }
 }
+
+$(document).ready(function() {
+    $("#invoiceDate").datepicker({
+        dateFormat: "yy-mm-dd"
+    });
+});
+

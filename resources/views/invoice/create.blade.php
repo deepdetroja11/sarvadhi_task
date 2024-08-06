@@ -76,10 +76,16 @@
                                                         {{ $item->name }}</option>
                                                 @endforeach
                                             </select>
+                                            @error('item_id')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                         <div class="col-md-2">
                                             <input type="number" class="form-control quantity-input"
                                                 name="items[0][quantity]" placeholder="Quantity" />
+                                            @error('quantity')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                         <div class="col-md-2">
                                             <input type="number" class="form-control rate-input" name="items[0][rate]"
@@ -94,17 +100,22 @@
                                 <div class="form-group">
                                     <label class="form-label">Payment Status</label>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="status" id="paid" value="1">
+                                        <input class="form-check-input" type="radio" name="status" id="paid"
+                                            value="1">
                                         <label class="form-check-label" for="paid">
                                             Paid
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="status" id="unpaid" value="0">
+                                        <input class="form-check-input" type="radio" name="status" id="unpaid"
+                                            value="0">
                                         <label class="form-check-label" for="unpaid">
                                             Unpaid
                                         </label>
                                     </div>
+                                    @error('status')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                         </div>

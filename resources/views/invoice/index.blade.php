@@ -5,6 +5,7 @@
     <link href="{{ asset('assets') }}/plugins/datatable/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
     <link href="{{ asset('assets') }}/plugins/datatable/responsivebootstrap4.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
 @endsection
 <div class="page-header d-xl-flex d-block">
     <div class="page-leftheader">
@@ -28,13 +29,18 @@
 <div class="row">
     <div class="col-md-3">
         <div class="form-group">
-
             <label for="userSelect">Select Status</label>
             <select id="userSelect" class="form-control">
                 <option value="">Select status</option>
                 <option value="1">Paid</option>
                 <option value="0">Unpaid</option>
             </select>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label for="invoiceDate">Invoice Date</label>
+            <input type="text" id="invoiceDate" class="form-control" placeholder="Select Date">
         </div>
     </div>
 </div>
@@ -74,6 +80,7 @@
 </div>
 @endsection
 @section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script src="{{ asset('assets') }}/plugins/datatable/js/jquery.dataTables.min.js"></script>
 <script src="{{ asset('assets') }}/plugins/datatable/js/dataTables.bootstrap4.js"></script>
 <script src="{{ asset('assets') }}/plugins/datatable/dataTables.responsive.min.js"></script>

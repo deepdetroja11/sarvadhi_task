@@ -35,6 +35,10 @@ class InvoiceController extends Controller
                 $query->where('status', $status);
             }
 
+            if ($request->invoice_date) {
+                $query->whereDate('invoice_date', $request->invoice_date);
+            }
+
             $invoices = $query->get();
 
             return DataTables::of($invoices)

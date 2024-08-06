@@ -7,7 +7,6 @@
     </style>
 
     <body>
-
         <div class="container" role="document" style="margin-top: 50px">
             <form method="POST" action="{{ route('invoice.update', $invoice->id) }}" id="invoiceForm"
                 enctype="multipart/form-data">
@@ -100,6 +99,29 @@
                                 </div>
                             @endforeach
                         </div>
+                        <div class="row mt-4">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="form-label">Payment Status</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="status" id="paid" value="1" {{ old('status', $invoice->status) == '1' ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="paid">
+                                            Paid
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="status" id="unpaid" value="0" {{ old('status', $invoice->status) == '0' ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="unpaid">
+                                            Unpaid
+                                        </label>
+                                    </div>
+                                    @error('status')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </form>

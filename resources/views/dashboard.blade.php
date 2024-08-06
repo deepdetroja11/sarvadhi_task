@@ -56,8 +56,8 @@
                             <div class="row">
                                 <div class="col-8">
                                     <div class="mt-0 text-left"> <span class="fs-14 font-weight-semibold">Total
-                                            Tasks</span>
-                                        <h3 class="mb-0 mt-1 mb-2">0</h3>
+                                            Invoice</span>
+                                        <h3 class="mb-0 mt-1 mb-2">{{ $invoiceCount }}</h3>
                                     </div>
                                 </div>
                                 <div class="col-4">
