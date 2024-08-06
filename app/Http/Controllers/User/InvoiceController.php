@@ -155,6 +155,7 @@ class InvoiceController extends Controller
                 'invoice_date' => $validated['invoice_date'],
                 'due_date' => $validated['due_date'],
                 'tax' => $validated['tax'],
+                'status' => $validated['status'],
             ]);
 
             $totalAmount = 0;
@@ -250,7 +251,6 @@ class InvoiceController extends Controller
             'invoice' => $invoice
         ];
 
-
         Mail::send('emails.invoice', $data, function ($message) use ($data, $pdf) {
             $message->to($data['email'])
                 ->subject($data['title'])
@@ -258,8 +258,6 @@ class InvoiceController extends Controller
                     'mime' => 'application/pdf',
                 ]);
         });
-
-
         return response()->json(['success' => 'Test email sent successfully!']);
     }
 }
