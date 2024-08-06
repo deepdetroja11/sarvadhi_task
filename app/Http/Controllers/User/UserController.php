@@ -12,7 +12,7 @@ class UserController extends Controller
     public function dashboard()
     {
         $user = Auth::user();
-        $invoiceCount = Invoice::where('user_id', $user->id)->count();
+        $invoiceCount = $user->role == 1 ? Invoice::count() : Invoice::where('user_id', $user->id)->count();
         return view('dashboard',compact('invoiceCount'));
     }
 

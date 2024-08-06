@@ -13,7 +13,8 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
-        return view('dashboard');
+        $invoiceCount = Invoice::count();
+        return view('dashboard', compact('invoiceCount'));
     }
 
     public function invoiceList(Request $request)
