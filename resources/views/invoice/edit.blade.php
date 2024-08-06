@@ -98,6 +98,12 @@
                                                     name="items[{{ $index }}][rate]"
                                                     value="{{ old('items.' . $index . '.rate', $item->rate) }}"
                                                     placeholder="Rate" readonly />
+                                                <input type="hidden" name="items[{{ $index }}][rate_hidden]"
+                                                    class="rate-hidden-input"
+                                                    value="{{ old('items.' . $index . '.rate', $item->rate) }}" />
+                                                @error('items.' . $index . '.rate')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -109,13 +115,15 @@
                                 <div class="form-group">
                                     <label class="form-label">Payment Status</label>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="status" id="paid" value="1" {{ old('status', $invoice->status) == '1' ? 'checked' : '' }}>
+                                        <input class="form-check-input" type="radio" name="status" id="paid"
+                                            value="1" {{ old('status', $invoice->status) == '1' ? 'checked' : '' }}>
                                         <label class="form-check-label" for="paid">
                                             Paid
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="status" id="unpaid" value="0" {{ old('status', $invoice->status) == '0' ? 'checked' : '' }}>
+                                        <input class="form-check-input" type="radio" name="status" id="unpaid"
+                                            value="0" {{ old('status', $invoice->status) == '0' ? 'checked' : '' }}>
                                         <label class="form-check-label" for="unpaid">
                                             Unpaid
                                         </label>
@@ -137,3 +145,23 @@
             </form>
         </div>
     @endsection
+    @section('script')
+    <script src="{{ asset('assets') }}/admin/plugins/js-validation/jquery.validate.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.item-select').forEach(function(select) {
+                select.addEventListener('change', function() {
+                    let index = this.getAttribute('data-index');
+                    let rate = this.options[this.selectedIndex].getAttribute('data-rate');
+
+                    let rateInput = document.querySelector(`input[name="items[${index}][rate]"]`);
+                    let hiddenRateInput = document.querySelector(
+                        `input[name="items[${index}][rate_hidden]"]`);
+
+                    rateInput.value = rate;
+                    hiddenRateInput.value = rate;
+                });
+            });
+        });
+    </script>
+@endsection

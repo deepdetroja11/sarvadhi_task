@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\InvoiceCreateRequest;
+use App\Mail\InvoiceMail;
 use App\Models\Invoice;
 use App\Models\InvoiceItem;
 use App\Models\Item;
@@ -16,6 +17,7 @@ use Illuminate\Database\QueryException;
 use Carbon\Carbon;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class InvoiceController extends Controller
 {
@@ -45,11 +47,13 @@ class InvoiceController extends Controller
                     $edit_url = route('invoice.edit', $row->id);
                     $view_url = route('invoice.show', $row->id);
                     $download_url = route('invoice.download', ['id' => $row->id, 'download' => true]);
+                    $email_url = route('invoice.email', $row->id);
                     $action_btn = "
-                        <a href='{$view_url}' class='action-btns1 mr-2'><i class='fe fe-eye text-info' data-toggle='tooltip' data-placement='top' title='View'></i></a>
-                        <a href='{$edit_url}' class='action-btns1 mr-2'><i class='fe fe-edit text-primary' data-toggle='tooltip' data-placement='top' title='Edit'></i></a>
-                        <a href='javascript:void(0);' onclick='deleteInvoice({$row->id})' class='action-btns1 mr-2' data-toggle='tooltip' data-placement='top' title='Delete'><i class='fe fe-trash-2 text-danger'></i></a>
-                        <a href='{$download_url}' class='action-btns1 mr-2' data-toggle='tooltip' data-placement='top' title='Download PDF' style='color:blue'><i class='fe fe-download'></i></a>";
+                    <a href='{$view_url}' class='action-btns1 mr-2'><i class='fe fe-eye text-info' data-toggle='tooltip' data-placement='top' title='View'></i></a>
+                    <a href='{$edit_url}' class='action-btns1 mr-2'><i class='fe fe-edit text-primary' data-toggle='tooltip' data-placement='top' title='Edit'></i></a>
+                    <a href='javascript:void(0);' onclick='deleteInvoice({$row->id})' class='action-btns1 mr-2' data-toggle='tooltip' data-placement='top' title='Delete'><i class='fe fe-trash-2 text-danger'></i></a>
+                    <a href='{$download_url}' class='action-btns1 mr-2' data-toggle='tooltip' data-placement='top' title='Download PDF' style='color:blue'><i class='fe fe-download'></i></a>
+            <a href='javascript:void(0);' onclick='sendInvoiceEmail({$row->id}, this)' class='action-btns1 mr-2' data-toggle='tooltip' data-placement='top' title='Send Email' style='color:green'><i class='fe fe-mail'></i></a>";
                     return $action_btn;
                 })
                 ->rawColumns(['action'])
@@ -85,15 +89,16 @@ class InvoiceController extends Controller
 
             $totalAmount = 0;
 
-            foreach ($validated['items'] as $itemData) {
-                $itemTotal = $itemData['quantity'] * $itemData['rate'];
+            foreach ($validated['items'] as $index => $itemData) {
+                $rate = $request->input("items.{$index}.rate_hidden");
+                $itemTotal = $itemData['quantity'] * $rate;
                 $totalAmount += $itemTotal;
 
                 InvoiceItem::create([
                     'invoice_id' => $invoice->id,
                     'item_id' => $itemData['item_id'],
                     'quantity' => $itemData['quantity'],
-                    'rate' => $itemData['rate'],
+                    'rate' => $rate,
                 ]);
             }
 
@@ -110,6 +115,7 @@ class InvoiceController extends Controller
             return redirect()->back()->withErrors('An unexpected error occurred. Please try again.');
         }
     }
+
 
     /**
      * Display the specified resource.
@@ -153,8 +159,9 @@ class InvoiceController extends Controller
 
             $totalAmount = 0;
 
-            foreach ($validated['items'] as $itemData) {
-                $itemTotal = $itemData['quantity'] * $itemData['rate'];
+            foreach ($validated['items'] as $index => $itemData) {
+                $rate = $request->input("items.{$index}.rate_hidden");
+                $itemTotal = $itemData['quantity'] * $rate;
                 $totalAmount += $itemTotal;
 
                 $invoiceItem = InvoiceItem::where('invoice_id', $invoice->id)
@@ -164,14 +171,14 @@ class InvoiceController extends Controller
                 if ($invoiceItem) {
                     $invoiceItem->update([
                         'quantity' => $itemData['quantity'],
-                        'rate' => $itemData['rate'],
+                        'rate' => $rate,
                     ]);
                 } else {
                     InvoiceItem::create([
                         'invoice_id' => $invoice->id,
                         'item_id' => $itemData['item_id'],
                         'quantity' => $itemData['quantity'],
-                        'rate' => $itemData['rate'],
+                        'rate' => $rate,
                     ]);
                 }
             }
@@ -179,13 +186,15 @@ class InvoiceController extends Controller
             $totalAmountWithTax = $totalAmount + ($totalAmount * ($validated['tax'] / 100));
 
             $invoice->update(['total' => $totalAmountWithTax]);
-
             return redirect()->route('invoice.index')->with('success', 'Invoice updated successfully.');
         } catch (ModelNotFoundException $e) {
+            dd($e);
             return redirect()->back()->withErrors('Invoice not found.');
         } catch (QueryException $e) {
+            dd($e);
             return redirect()->back()->withErrors('Database error occurred. Please try again.');
         } catch (\Exception $e) {
+            dd($e);
             return redirect()->back()->withErrors('An unexpected error occurred. Please try again.');
         }
     }
@@ -222,5 +231,35 @@ class InvoiceController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->withErrors('An error occurred while generating the PDF.');
         }
+    }
+
+    public function sendEmail($id)
+    {
+        $invoice = Invoice::with('items')->findOrFail($id);
+        $invoice->invoice_date = Carbon::parse($invoice->invoice_date);
+        $invoice->due_date = Carbon::parse($invoice->due_date);
+
+        $items = DB::table('items')->get();
+
+        $pdf = PDF::loadView('invoice.pdfview', compact('invoice', 'items'))->output();
+
+        $data = [
+            'email' => $invoice->user->email,
+            'title' => 'Your Invoice',
+            'body' => 'Attached is your invoice.',
+            'invoice' => $invoice
+        ];
+
+
+        Mail::send('emails.invoice', $data, function ($message) use ($data, $pdf) {
+            $message->to($data['email'])
+                ->subject($data['title'])
+                ->attachData($pdf, 'invoice.pdf', [
+                    'mime' => 'application/pdf',
+                ]);
+        });
+
+
+        return response()->json(['success' => 'Test email sent successfully!']);
     }
 }

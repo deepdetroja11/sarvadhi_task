@@ -39,6 +39,7 @@ Route::middleware('auth')->group(function () {
         Route::get('user/dashboard', [UserController::class, 'dashboard'])->name('user.dashboard');
         Route::resource('invoice', InvoiceController::class);
         Route::get('/invoice/{id}/download', [InvoiceController::class, 'download'])->name('invoice.download');
+        Route::get('/invoice/email/{id}', [InvoiceController::class, 'sendEmail'])->name('invoice.email');
     });
     Route::get('logout', [AuthController::class, 'userLogout'])->name('user.logout');
 });

@@ -91,5 +91,26 @@
         index: "{{ route('invoice.index') }}",
         destroy: "{{ route('invoice.destroy', ':id') }}"
     };
+
+
+    function sendInvoiceEmail(invoiceId, button) {
+        $(button).prop('disabled', true);
+        console.log(button, "btns");
+
+        $.ajax({
+            url: '/invoice/email/' + invoiceId,
+            type: 'GET',
+            success: function(response) {
+                alert(response.success);
+                $(button).prop('disabled', false);
+            },
+            error: function(response) {
+                alert('Error sending email.');
+            },
+            complete: function() {
+                $(button).prop('disabled', false);
+            }
+        });
+    }
 </script>
 @endsection

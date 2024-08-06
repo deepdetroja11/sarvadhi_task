@@ -72,24 +72,32 @@
                                                 data-index="0">
                                                 <option value="" data-rate="">Select Item</option>
                                                 @foreach ($items as $item)
-                                                    <option value="{{ $item->id }}" data-rate="{{ $item->rate }}">
-                                                        {{ $item->name }}</option>
+                                                    <option value="{{ $item->id }}" data-rate="{{ $item->rate }}"
+                                                        {{ old('items.0.item_id') == $item->id ? 'selected' : '' }}>
+                                                        {{ $item->name }}
+                                                    </option>
                                                 @endforeach
                                             </select>
-                                            @error('item_id')
+                                            @error('items.0.item_id')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
                                         <div class="col-md-2">
-                                            <input type="number" class="form-control quantity-input"
-                                                name="items[0][quantity]" placeholder="Quantity" />
-                                            @error('quantity')
+                                            <input type="number"
+                                                class="form-control quantity-input @error('items.0.quantity') is-invalid @enderror"
+                                                name="items[0][quantity]" placeholder="Quantity"
+                                                value="{{ old('items.0.quantity') }}" />
+                                            @error('items.0.quantity')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
                                         <div class="col-md-2">
                                             <input type="number" class="form-control rate-input" name="items[0][rate]"
                                                 placeholder="Rate" readonly />
+                                            <input type="hidden" name="items[0][rate_hidden]" class="rate-hidden-input" />
+                                            @error('items.0.rate')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -132,73 +140,20 @@
 
     @section('script')
         <script src="{{ asset('assets') }}/admin/plugins/js-validation/jquery.validate.min.js"></script>
-        {{-- <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                let itemIndex = 1;
-
-                document.getElementById('addItem').addEventListener('click', function() {
-                    const newRow = document.createElement('div');
-                    newRow.classList.add('row', 'mb-2');
-                    newRow.innerHTML = `
-            <div class="col-md-4">
-                <select class="form-control item-select" name="items[${itemIndex}][item_id]" data-index="${itemIndex}">
-                    <option value="" data-rate="">Select Item</option>
-                    @foreach ($items as $item)
-                        <option value="{{ $item->id }}" data-rate="{{ $item->rate }}">{{ $item->name }}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="col-md-2">
-                <input type="number" class="form-control quantity-input" name="items[${itemIndex}][quantity]" placeholder="Quantity"/>
-            </div>
-            <div class="col-md-2">
-                <input type="number" class="form-control rate-input" name="items[${itemIndex}][rate]" placeholder="Rate" readonly />
-            </div>
-            <div class="col-md-2">
-                <input type="number" class="form-control" name="items[${itemIndex}][total]" placeholder="Total" readonly />
-            </div>
-            <div class="col-md-2 d-flex">
-                <button type="button" class="btn btn-danger remove-item mr-2">Remove</button>
-                <button type="button" class="btn btn-primary add-item">Add Item</button>
-            </div>
-        `;
-                    document.getElementById('itemsContainer').appendChild(newRow);
-                    itemIndex++;
-                });
-
-                document.getElementById('itemsContainer').addEventListener('click', function(e) {
-                    if (e.target.classList.contains('remove-item')) {
-                        e.target.closest('.row').remove();
-                    }
-                });
-
-                document.getElementById('itemsContainer').addEventListener('change', function(e) {
-                    if (e.target.classList.contains('item-select')) {
-                        const index = e.target.getAttribute('data-index');
-                        const selectedOption = e.target.options[e.target.selectedIndex];
-                        const rate = selectedOption.getAttribute('data-rate');
-                        document.querySelector(`input[name="items[${index}][rate]"]`).value = rate;
-                    }
-                });
-            });
-        </script> --}}
-
-
-
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                document.getElementById('itemsContainer').addEventListener('change', function(e) {
-                    if (e.target.classList.contains('item-select')) {
-                        const index = e.target.getAttribute('data-index');
-                        const selectedOption = e.target.options[e.target.selectedIndex];
-                        const rate = selectedOption.getAttribute('data-rate');
-                        document.querySelector(`input[name="items[${index}][rate]"]`).value = rate;
-                    }
-                });
-                document.getElementById('itemsContainer').addEventListener('click', function(e) {
-                    if (e.target.classList.contains('remove-item')) {
-                        e.target.closest('.row').remove();
-                    }
+                document.querySelectorAll('.item-select').forEach(function(select) {
+                    select.addEventListener('change', function() {
+                        let index = this.getAttribute('data-index');
+                        let rate = this.options[this.selectedIndex].getAttribute('data-rate');
+
+                        let rateInput = document.querySelector(`input[name="items[${index}][rate]"]`);
+                        let hiddenRateInput = document.querySelector(
+                            `input[name="items[${index}][rate_hidden]"]`);
+
+                        rateInput.value = rate;
+                        hiddenRateInput.value = rate;
+                    });
                 });
             });
         </script>

@@ -26,8 +26,8 @@ class InvoiceCreateRequest extends FormRequest
             'invoice_date' => 'required|date',
             'due_date' => 'required|date|after:invoice_date',
             'tax' => 'required|numeric|min:0',
-            'item_id' => 'required|exists:items,id',
-            'quantity' => 'required|integer|min:1',
+            'items.*.item_id' => 'required|exists:items,id',
+            'items.*.quantity' => 'required|integer|min:1',
             'status' => 'required|in:0,1'
         ];
     }
