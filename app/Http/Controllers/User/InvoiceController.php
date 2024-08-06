@@ -134,7 +134,7 @@ class InvoiceController extends Controller
      */
     public function edit(string $id)
     {
-        $invoice = Invoice::findOrFail($id);
+        $invoice = Invoice::with('items')->findOrFail($id);
         $items = Item::all();
         $invoice->invoice_date = Carbon::parse($invoice->invoice_date);
         $invoice->due_date = Carbon::parse($invoice->due_date);
@@ -166,13 +166,14 @@ class InvoiceController extends Controller
                 $totalAmount += $itemTotal;
 
                 $invoiceItem = InvoiceItem::where('invoice_id', $invoice->id)
-                    ->where('item_id', $itemData['item_id'])
                     ->first();
 
                 if ($invoiceItem) {
                     $invoiceItem->update([
                         'quantity' => $itemData['quantity'],
                         'rate' => $rate,
+                        'invoice_id' => $invoice['id'],
+                        'item_id' => $itemData['item_id'],
                     ]);
                 } else {
                     InvoiceItem::create([

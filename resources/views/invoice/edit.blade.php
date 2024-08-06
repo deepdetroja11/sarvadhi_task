@@ -9,8 +9,7 @@
     <body>
 
         <div class="container" role="document" style="margin-top: 50px">
-            <form method="POST" action="{{ route('invoice.update', $invoice->id) }}" id="invoiceForm"
-                enctype="multipart/form-data">
+            <form method="POST" action="{{ route('invoice.update', $invoice->id) }}" id="invoiceForm" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="modal-content">
@@ -80,7 +79,7 @@
                                                         </option>
                                                     @endforeach
                                                 </select>
-                                                @error('item_id')
+                                                @error('items.'.$index.'.item_id')
                                                     <span class="text-danger">{{ $message }}</span>
                                                 @enderror
                                             </div>
@@ -89,7 +88,7 @@
                                                     name="items[{{ $index }}][quantity]"
                                                     value="{{ old('items.' . $index . '.quantity', $item->quantity) }}"
                                                     placeholder="Quantity" />
-                                                @error('quantity')
+                                                @error('items.'.$index.'.quantity')
                                                     <span class="text-danger">{{ $message }}</span>
                                                 @enderror
                                             </div>
@@ -101,7 +100,7 @@
                                                 <input type="hidden" name="items[{{ $index }}][rate_hidden]"
                                                     class="rate-hidden-input"
                                                     value="{{ old('items.' . $index . '.rate', $item->rate) }}" />
-                                                @error('items.' . $index . '.rate')
+                                                @error('items.'.$index.'.rate')
                                                     <span class="text-danger">{{ $message }}</span>
                                                 @enderror
                                             </div>
@@ -134,7 +133,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-md-12">
                             <div class="form-group text-right">
                                 <button class="btn btn-success" type="submit" name="save">Submit</button>
@@ -143,6 +141,8 @@
                     </div>
                 </div>
             </form>
+
+
         </div>
     @endsection
     @section('script')
